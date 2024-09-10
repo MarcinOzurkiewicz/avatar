@@ -254,13 +254,7 @@ function setDataSources(azureCogSearchEndpoint, azureCogSearchApiKey, azureCogSe
             indexName: azureCogSearchIndexName,
             semanticConfiguration: 'vector-1720685926753-semantic-configuration',
             queryType: 'vector_semantic_hybrid',
-            fieldsMapping: {
-                contentFieldsSeparator: '\n',
-                contentFields: ['content'],
-                filepathField: null,
-                titleField: 'title',
-                urlField: null
-            },
+            fieldsMapping: {},
             inScope: true,
             roleInformation: document.getElementById('prompt').value,
             authentication: {
