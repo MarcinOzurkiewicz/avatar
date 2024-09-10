@@ -247,13 +247,13 @@ function initMessages() {
 // Set data sources for chat API
 function setDataSources(azureCogSearchEndpoint, azureCogSearchApiKey, azureCogSearchIndexName) {
     let dataSource = {
-        type: 'AzureCognitiveSearch',
+        type: 'azure_search',
         parameters: {
             endpoint: azureCogSearchEndpoint,
             key: azureCogSearchApiKey,
             indexName: azureCogSearchIndexName,
-            semanticConfiguration: '',
-            queryType: 'simple',
+            semanticConfiguration: 'vector-1720685926753-semantic-configuration',
+            queryType: 'vector_semantic_hybrid',
             fieldsMapping: {
                 contentFieldsSeparator: '\n',
                 contentFields: ['content'],
@@ -263,6 +263,10 @@ function setDataSources(azureCogSearchEndpoint, azureCogSearchApiKey, azureCogSe
             },
             inScope: true,
             roleInformation: document.getElementById('prompt').value
+            embedding_dependency:{
+                type: 'deployment_name',
+                deployment_name: 'txt-embed-ada-002',
+            }
         }
     }
 
