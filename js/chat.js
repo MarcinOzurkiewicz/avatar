@@ -389,9 +389,9 @@ function handleUserQuery(userQuery) {
     if (dataSources.length > 0) {
         url = "{AOAIEndpoint}/openai/deployments/{AOAIDeployment}/extensions/chat/completions?api-version=2024-05-01-preview".replace("{AOAIEndpoint}", azureOpenAIEndpoint).replace("{AOAIDeployment}", azureOpenAIDeploymentName)
         body = JSON.stringify({
-            dataSources: dataSources,
             messages: messages,
-            stream: true
+            stream: true,
+            dataSources: dataSources
         })
     }
 
