@@ -262,7 +262,7 @@ function setDataSources(azureCogSearchEndpoint, azureCogSearchApiKey, azureCogSe
                 urlField: null
             },
             inScope: true,
-            roleInformation: document.getElementById('prompt').value
+            roleInformation: document.getElementById('prompt').value,
             embedding_dependency:{
                 type: 'deployment_name',
                 deployment_name: 'txt-embed-ada-002',
