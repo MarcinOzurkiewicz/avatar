@@ -250,13 +250,15 @@ function setDataSources(azureCogSearchEndpoint, azureCogSearchApiKey, azureCogSe
         type: 'azure_search',
         parameters: {
             endpoint: 'https://ozi0zsearch2.search.windows.net',
-            key: 'tWnozxvsrsmFtVlVwsWCm7f25uQAiROYHX5ZiP9uHcAzSeCCfTUb',
             indexName: 'vector-1720685926753',
             semanticConfiguration: 'vector-1720685926753-semantic-configuration',
             queryType: 'vector_semantic_hybrid',
             fieldsMapping: {},
             inScope: true,
             roleInformation: document.getElementById('prompt').value,
+            filter: '',
+            strictness: 3,
+            top_n_documents: 5,
             authentication: {
                 type: 'api_key',
                 key: 'tWnozxvsrsmFtVlVwsWCm7f25uQAiROYHX5ZiP9uHcAzSeCCfTUb'
@@ -388,7 +390,7 @@ function handleUserQuery(userQuery) {
 
     if (dataSources.length > 0) {
       //  url = "{AOAIEndpoint}/openai/deployments/{AOAIDeployment}/extensions/chat/completions?api-version=2024-05-01-preview".replace("{AOAIEndpoint}", azureOpenAIEndpoint).replace("{AOAIDeployment}", azureOpenAIDeploymentName)
-      url = "https://hild-openai-us2.openai.azure.com/openai/deployments/gpt-4/extensions/chat/completions?api-version=2024-02-15-preview" 
+      url = "https://hild-openai-us2.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-05-01-preview" 
       body = JSON.stringify({
             dataSources: dataSources,
             messages: messages,
