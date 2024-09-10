@@ -263,6 +263,10 @@ function setDataSources(azureCogSearchEndpoint, azureCogSearchApiKey, azureCogSe
             },
             inScope: true,
             roleInformation: document.getElementById('prompt').value,
+            authentication: {
+                type: 'api_key',
+                key: azureCogSearchApiKey
+              },
             embedding_dependency:{
                 type: 'deployment_name',
                 deployment_name: 'txt-embed-ada-002',
@@ -389,7 +393,7 @@ function handleUserQuery(userQuery) {
     })
 
     if (dataSources.length > 0) {
-        url = "{AOAIEndpoint}/openai/deployments/{AOAIDeployment}/extensions/chat/completions?api-version=2023-06-01-preview".replace("{AOAIEndpoint}", azureOpenAIEndpoint).replace("{AOAIDeployment}", azureOpenAIDeploymentName)
+        url = "{AOAIEndpoint}/openai/deployments/{AOAIDeployment}/extensions/chat/completions?api-version=2024-05-01-preview".replace("{AOAIEndpoint}", azureOpenAIEndpoint).replace("{AOAIDeployment}", azureOpenAIDeploymentName)
         body = JSON.stringify({
             dataSources: dataSources,
             messages: messages,
