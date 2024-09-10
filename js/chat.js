@@ -249,9 +249,9 @@ function setDataSources(azureCogSearchEndpoint, azureCogSearchApiKey, azureCogSe
     let dataSource = {
         type: 'azure_search',
         parameters: {
-            endpoint: azureCogSearchEndpoint,
-            key: azureCogSearchApiKey,
-            indexName: azureCogSearchIndexName,
+            endpoint: 'https://ozi0zsearch2.search.windows.net',
+            key: 'tWnozxvsrsmFtVlVwsWCm7f25uQAiROYHX5ZiP9uHcAzSeCCfTUb',
+            indexName: 'vector-1720685926753',
             semanticConfiguration: 'vector-1720685926753-semantic-configuration',
             queryType: 'vector_semantic_hybrid',
             fieldsMapping: {},
@@ -259,7 +259,7 @@ function setDataSources(azureCogSearchEndpoint, azureCogSearchApiKey, azureCogSe
             roleInformation: document.getElementById('prompt').value,
             authentication: {
                 type: 'api_key',
-                key: azureCogSearchApiKey
+                key: 'tWnozxvsrsmFtVlVwsWCm7f25uQAiROYHX5ZiP9uHcAzSeCCfTUb'
               },
             embedding_dependency:{
                 type: 'deployment_name',
