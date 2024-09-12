@@ -251,22 +251,18 @@ function initMessages() {
 // Set data sources for chat API
 function setDataSources(azureCogSearchEndpoint, azureCogSearchApiKey, azureCogSearchIndexName) {
     let dataSource = {
-        type: 'AzureCognitiveSearch',
+        type: 'azure_search',
         parameters: {
-            endpoint: azureCogSearchEndpoint,
-            key: azureCogSearchApiKey,
-            indexName: azureCogSearchIndexName,
-            semanticConfiguration: '',
-            queryType: 'simple',
-            fieldsMapping: {
-                contentFieldsSeparator: '\n',
-                contentFields: ['content'],
-                filepathField: null,
-                titleField: 'title',
-                urlField: null
+            authentication:{
+                type: 'api_key',
+                key: azureCogSearchApiKey
             },
-            inScope: true,
-            roleInformation: document.getElementById('prompt').value
+            top_n_documents: 3,
+            endpoint: azureCogSearchEndpoint,
+            index_name: azureCogSearchIndexName,
+            query_type: 'simple',
+            in_scope: true,
+            role_information: document.getElementById('prompt').value
         }
     }
 
@@ -389,9 +385,9 @@ function handleUserQuery(userQuery) {
     })
 
     if (dataSources.length > 0) {
-        url = "{AOAIEndpoint}/openai/deployments/{AOAIDeployment}/chat/completions?api-version=2023-06-01-preview".replace("{AOAIEndpoint}", azureOpenAIEndpoint).replace("{AOAIDeployment}", azureOpenAIDeploymentName)
+        url = "{AOAIEndpoint}/openai/deployments/{AOAIDeployment}/chat/completions?api-version=2024-08-01-preview".replace("{AOAIEndpoint}", azureOpenAIEndpoint).replace("{AOAIDeployment}", azureOpenAIDeploymentName)
         body = JSON.stringify({
-            dataSources: dataSources,
+            data_sources: dataSources,
             messages: messages,
             stream: true
         })
@@ -446,11 +442,12 @@ function handleUserQuery(userQuery) {
                         if (line.startsWith('data:') && !line.endsWith('[DONE]')) {
                             const responseJson = JSON.parse(line.substring(5).trim())
                             let responseToken = undefined
-                            if (dataSources.length === 0) {
+                            if (dataSources.length === 0 || dataSources.length > 0) {
                                 responseToken = responseJson.choices[0].delta.content
                             } else {
                                 let role = responseJson.choices[0].messages[0].delta.role
-                                if (role === 'tool') {
+                                //if (role === 'tool') {
+                                if (role === 'assistant') {
                                     toolContent = responseJson.choices[0].messages[0].delta.content
                                 } else {
                                     responseToken = responseJson.choices[0].messages[0].delta.content
